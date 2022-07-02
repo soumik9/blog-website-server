@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 
 // const verifyLogin = require('../middleware/verifyLogin');
 const UserController = require('../controllers/UserController');
-const User = require('../model/userSchema');
 
 /* 
     "name": "Admin",

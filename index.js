@@ -9,13 +9,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-
 // requires
 const connection = require("./db");
 const userRoute = require('./routes/userRoute');
-
-// const verifyLogin = require('./middleware/verifyLogin');
-
+const postRoute = require('./routes/postRoute');
+const commentRoute = require('./routes/commentRoute');
 
 // database connection
 (async () => await connection())();
@@ -32,17 +30,14 @@ async function run() {
 
       // routes
       app.use('/api', userRoute);
-
-
-
+      app.use('/api/post', postRoute);
+      app.use('/api/comment', commentRoute);
       } finally {
 
   }
 }
 
 run().catch(console.dir);
-
-
 
 // port listening
 const startServer = (port) => {
