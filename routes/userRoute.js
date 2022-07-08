@@ -18,7 +18,7 @@ router.get('/user/index', verifyLogin, UserController.index);
 router.get('/user/:userId', verifyLogin, UserController.single);
 
 //create new user
-router.post('/user/create', verifyLogin, UserController.create);
+router.post('/user/create', UserController.create);
 
 //login a user
 router.post('/login', UserController.login);
