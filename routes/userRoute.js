@@ -11,7 +11,6 @@ const UserController = require('../controllers/UserController');
     "password": "abcabc"
 */
 
-
 //get all users
 router.get('/user/index', verifyLogin, UserController.index);
 
@@ -19,7 +18,7 @@ router.get('/user/index', verifyLogin, UserController.index);
 router.get('/user/:userId', verifyLogin, UserController.single);
 
 //create new user
-router.post('/user/create', UserController.create);
+router.post('/user/create', verifyLogin, UserController.create);
 
 //login a user
 router.post('/login', UserController.login);
