@@ -8,6 +8,9 @@ const upload = require('../middlewaire/upload')
 //get all posts
 router.get('/index', PostController.index);
 
+//get single post
+router.get('/:postId', PostController.single);
+
 //create new post
 router.post('/create', upload.single('img'), PostController.create);
 

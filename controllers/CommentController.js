@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Comment = require('../model/commentSchema');
+const Post = require('../model/postSchema');
 
 const index = async (req, res, next) => {
     try {
@@ -12,13 +13,16 @@ const index = async (req, res, next) => {
 
 const create = async (req, res, next) => {
     try {
-        const newComment = new Comment({
-            // name: req.body.name,
-            // email: req.body.email,
-            // password: hashedPassword,
-        });
-
+        const newComment = new Comment(req.body);
         await newComment.save();
+
+        //push comment id to post 
+        await Post.updateOne({ _id: req.body.postId }, {
+            $push: {
+                commentId: newComment._id
+            }
+        })
+
         res.send({ newComment, message: `Comment created successfully`, success: true });
     } catch (error) {
         res.status(500).send({ error: error, message: 'Failed to create comment', success: false });
