@@ -8,9 +8,19 @@ const User = require('../model/userSchema');
 const index = async (req, res, next) => {
     try {
         const users = await User.find({}).select({ __v: 0 });
-        res.send({ users, message: 'Successfully loaded all user', success: true });
+        res.send({ users, message: 'Successfully loaded all users', success: true });
     } catch (error) {
         console.log(error);
+        res.status(500).send({ error: error, message: 'Server side error', success: false });
+    }
+}
+
+const single = async (req, res, next) => {
+    try {
+        const userId = req.params.userId;
+        const user = await User.findOne({ _id: userId }).select({ __v: 0 });
+        res.send({ user, message: 'Successfully loaded the user', success: true });
+    } catch (error) {
         res.status(500).send({ error: error, message: 'Server side error', success: false });
     }
 }
@@ -55,9 +65,10 @@ const login = async (req, res, next) => {
             res.status(401).send({ message: "You are not registred user!", success: false })
         }
     } catch (error) {
+        console.log(error);
         res.status(401).send({ error: error, message: 'Failed to Login', success: false });
     }
 }
 
 
-module.exports = { index, create, login, }
+module.exports = { index, create, login, single }

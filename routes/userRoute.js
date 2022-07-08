@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 
-// const verifyLogin = require('../middleware/verifyLogin');
+const verifyLogin = require('../middlewaire/verifyLogin');
 const UserController = require('../controllers/UserController');
 
 /* 
@@ -13,7 +13,10 @@ const UserController = require('../controllers/UserController');
 
 
 //get all users
-router.get('/user/index', UserController.index);
+router.get('/user/index', verifyLogin, UserController.index);
+
+//get all users
+router.get('/user/:userId', verifyLogin, UserController.single);
 
 //create new user
 router.post('/user/create', UserController.create);
